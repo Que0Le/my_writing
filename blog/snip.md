@@ -1,5 +1,23 @@
 
 
+```ts
+export class MarkdownService {
+
+  async toHtml(markdown: string): Promise<string> {
+    const file = await unified()
+      .use(remarkParse)
+      .use(remarkGfm)
+      .use(remarkRehype)
+      // .use(remarkToc, { heading: 'toc|table of contents' })
+      .use(rehypeHighlight, { detect: true })
+      .use(rehypeStringify)
+      .process(markdown);
+
+    return String(file);
+  }
+}
+```
+
 ---
 ## Fix Thinkpad T14 touchpad stops working
 My machine has Ubuntu 20.04 OEM installed, kernel 5.14, X11. After trying for a while, this commands seems to install the correct hardware:
